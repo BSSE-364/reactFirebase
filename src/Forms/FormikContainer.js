@@ -1,5 +1,6 @@
 import React from "react";
 import { Formik, Form } from "formik";
+import * as Yup from "yup";
 import FormikControl from "./FormikControl";
 
 import firebaseDB from "../Database/firebase";
@@ -11,12 +12,22 @@ import { useHistory } from "react-router-dom";
 function FormikContainer() {
   const history = useHistory();
   const toast = useToast();
+
   const initialValues = {
     username: "",
     email: "",
     city: "",
     message: "",
   };
+  const validationSchema = Yup.object({
+    username: Yup.string().min(3, "To Short!").required("Required!"),
+    email: Yup.string().email("Invalid email format!").required("Required!"),
+    city: Yup.string().min(3, "To Short!").required("Required!"),
+    message: Yup.string()
+      .min(15, "Minimum 15 character required!")
+      .max(250, "Maximum 250 character required!")
+      .required("Required!"),
+  });
   const onSubmit = (values, onSubmitProps) => {
     firebaseDB.collection("informations").add({
       values,
@@ -29,14 +40,18 @@ function FormikContainer() {
       title: "Success",
       description: "Data successfully Added",
       status: "success",
-      duration: 6000,
+      duration: 4000,
       isClosable: true,
     });
     history.push("/view");
   };
   return (
     <>
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      >
         {(formik) => (
           <Form>
             <FormikControl
@@ -48,7 +63,7 @@ function FormikContainer() {
             <FormikControl
               control="chakraInput"
               name="email"
-              type="text"
+              type="email"
               label="Email"
             />
             <FormikControl
@@ -58,7 +73,7 @@ function FormikContainer() {
               label="City"
             />
             <FormikControl
-              control="chakraInput"
+              control="textarea"
               name="message"
               type="text"
               label="Message"

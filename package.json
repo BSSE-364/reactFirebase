@@ -16,6 +16,7 @@
     "firebase": "^7.17.2",
     "formik": "^2.1.5",
     "framer": "^1.2.5",
+    "material-ui-confirm": "^2.1.1",
     "motion": "^5.0.0-beta26",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

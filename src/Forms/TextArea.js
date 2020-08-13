@@ -5,10 +5,10 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  Input,
+  Textarea,
 } from "@chakra-ui/core";
 
-function ChakraInput(props) {
+function TextArea(props) {
   const { name, label, ...rest } = props;
   return (
     <>
@@ -21,7 +21,7 @@ function ChakraInput(props) {
               isInvalid={form.errors[name] && form.touched[name]}
             >
               <FormLabel htmlFor={label}>{label}</FormLabel>
-              <Input
+              <Textarea
                 size="sm"
                 mt="0"
                 autoComplete="off"
@@ -40,4 +40,4 @@ function ChakraInput(props) {
   );
 }
 
-export default ChakraInput;
+export default TextArea;
