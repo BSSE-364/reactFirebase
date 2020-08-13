@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, useEffect, useState } from "react";
+import Router from "./Routers/Router";
+import firebaseDB from "./Database/firebase";
+
+import { Box } from "@chakra-ui/core";
+
+export const ContextValues = createContext();
 
 function App() {
+  const [fetchData, setFetchData] = useState({});
+
+  useEffect(() => {
+    firebaseDB
+      .collection("informations")
+      .orderBy("createdAt", "desc")
+      .onSnapshot((snapshot) => {
+        const vals = snapshot.docs.map((doc) => doc.data());
+        setFetchData(vals);
+      });
+  }, []);
+
+  const ocjectValues = {
+    fetchData: fetchData,
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ContextValues.Provider value={ocjectValues}>
+        <Box style={{ display: "grid", placeItems: "center" }}>
+          <Router />
+        </Box>
+      </ContextValues.Provider>
+    </>
   );
 }
 
