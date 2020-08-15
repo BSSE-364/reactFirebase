@@ -20,6 +20,7 @@ import Avatar from "@material-ui/core/Avatar";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { blue } from "@material-ui/core/colors";
 import { useConfirm } from "material-ui-confirm";
+import BackdropLoading from "./BackdropLoading";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,6 +76,7 @@ function View() {
 
   return (
     <>
+      {context.loading ? <BackdropLoading /> : null}
       <Grid container justify="center" alignItems="center">
         <Grid
           item

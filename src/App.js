@@ -9,8 +9,10 @@ export const ContextValues = createContext();
 
 function App() {
   const [fetchData, setFetchData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     firebaseDB
       .collection("informations")
       .orderBy("createdAt", "desc")
@@ -20,11 +22,13 @@ function App() {
           id: doc.id,
         }));
         setFetchData(vals);
+        setLoading(false);
       });
   }, []);
 
   const ocjectValues = {
     fetchData: fetchData,
+    loading: loading,
   };
   return (
     <>
