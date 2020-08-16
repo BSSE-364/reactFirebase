@@ -15,7 +15,12 @@ function Create() {
           </Heading>
           <NavLink to="/view">
             <Heading mt="4" mb="5" fontSize="sm " textAlign="center">
-              <span style={{ color: "skyblue" }}>View Your Informations</span>
+              <span style={{ color: "skyblue" }}>
+                View Your Informations{" "}
+                <span role="img" aria-label="rocket">
+                  🚀
+                </span>
+              </span>
             </Heading>
           </NavLink>
         </Grid>

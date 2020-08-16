@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, createContext } from "react";
 import { ContextValues } from "../App";
 import firebaseDB from "../Database/firebase";
 import {
@@ -21,6 +21,7 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import { blue } from "@material-ui/core/colors";
 import { useConfirm } from "material-ui-confirm";
 import BackdropLoading from "./BackdropLoading";
+import UpdateModal from "./UpdateModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +37,8 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(7),
   },
 }));
+
+export const ViewContextValues = createContext();
 
 function View() {
   const context = useContext(ContextValues);
@@ -56,7 +59,7 @@ function View() {
               title: "Success",
               description: "Data successfully Deleted",
               status: "success",
-              duration: 3000,
+              duration: 2000,
               isClosable: true,
             });
           })
@@ -66,7 +69,7 @@ function View() {
               title: "Error",
               description: "Error! while data delting",
               status: "success",
-              duration: 4000,
+              duration: 5000,
               isClosable: true,
             });
           });
@@ -76,7 +79,8 @@ function View() {
 
   return (
     <>
-      {context.loading ? <BackdropLoading /> : null}
+      {context.loading && <BackdropLoading />}
+      {context.showModal && <UpdateModal />}
       <Grid container justify="center" alignItems="center">
         <Grid
           item
@@ -110,29 +114,35 @@ function View() {
             >
               <ListItem mt="4">
                 <ListIcon icon="check-circle" />
-                {info.values.values.username}
+                {info.username}
               </ListItem>
               <ListItem pt="3">
                 <ListIcon icon="check-circle" />
-                {info.values.values.email}
+                {info.email}
               </ListItem>
               <ListItem pt="3">
                 <ListIcon icon="check-circle" />
-                {info.values.values.city}
+                {info.city}
               </ListItem>
               <ListItem pt="3" textAlign="justify">
                 <ListIcon icon="check-circle" />
-                {info.values.values.message}
+                {info.message}
               </ListItem>
               <Divider />
               <Box d="flex" justifyContent="center">
-                <Icon name="edit" color="#ffffff" mr="10" cursor="pointer" />
+                <Icon
+                  name="edit"
+                  color="#ffffff"
+                  mr="10"
+                  cursor="pointer"
+                  onClick={() => context.editData(info.id)}
+                />
                 <Icon
                   name="delete"
                   color="#ffffff"
                   cursor="pointer"
                   onClick={() =>
-                    deleteInfo(info.id, info.values.values.username)
+                    deleteInfo(info.id, info.username)
                   }
                 />
               </Box>
