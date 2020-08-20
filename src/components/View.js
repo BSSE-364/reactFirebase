@@ -1,6 +1,6 @@
 import React, { useContext, createContext } from "react";
 import { ContextValues } from "../App";
-import firebaseDB from "../Database/firebase";
+import {firebaseDB} from "../Database/firebase";
 import {
   List,
   ListItem,

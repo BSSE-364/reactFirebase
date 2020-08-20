@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+// import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom'
 import { ThemeProvider, CSSReset, theme } from '@chakra-ui/core';
+import Main from './FirebaseAuth/Main';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CSSReset />
       <Router>
-        <App />
+        <Main />
       </Router>
     </ThemeProvider>
   </React.StrictMode>,

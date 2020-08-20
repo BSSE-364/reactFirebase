@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { ContextValues } from "../App";
 import FormikControl from "./FormikControl";
 
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
-import firebaseDB from "../Database/firebase";
+import {firebaseDB} from "../Database/firebase";
 import firebase from "firebase/app";
 
 import { Button, Box, useToast, Flex } from "@chakra-ui/core";
@@ -13,7 +13,6 @@ import { useHistory } from "react-router-dom";
 
 function FormikContainer() {
   const context = useContext(ContextValues);
-  const [formikForm, setFormikForm] = useState(null);
   const history = useHistory();
   const toast = useToast();
 

@@ -1,14 +1,13 @@
 import React, { createContext, useEffect, useState } from "react";
 import Router from "./Routers/Router";
-import firebaseDB from "./Database/firebase";
+import {firebaseDB} from "./Database/firebase";
 
-import { Box, useToast } from "@chakra-ui/core";
+import { Box } from "@chakra-ui/core";
 import { ConfirmProvider } from "material-ui-confirm";
 
 export const ContextValues = createContext();
 
 function App() {
-  const toast = useToast();
   const [fetchData, setFetchData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
